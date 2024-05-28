@@ -1,0 +1,71 @@
+USE gestion_tp;
+
+CREATE TABLE promotion (
+    id_promotion INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nom_promotion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE utilisateur (
+    id_utilisateur INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nom_utilisateur VARCHAR(255) NOT NULL,
+    prenom_utilisateur VARCHAR(255) NOT NULL,
+    mail_utilisateur VARCHAR(255) NOT NULL,
+    mdp_utilisateur VARCHAR(255) NOT NULL,
+    is_admin BIT NOT NULL,
+    fk_id_promo INT NOT NULL,
+    CONSTRAINT fk_id_promo_utilisateur FOREIGN KEY (fk_id_promo) REFERENCES promotion(id_promotion)
+);
+
+CREATE TABLE tp (
+    id_tp INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    nom_tp VARCHAR(255) NOT NULL,
+    description_tp VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tache (
+    id_tache INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    description_tache TEXT NOT NULL,
+    is_checkpoint BIT NOT NULL,
+    ordre_tache INT NOT NULL,
+    point_etape INT NOT NULL,
+    is_bonus BIT NOT NULL,
+    is_actif BIT NOT NULL,
+    fk_id_tp INT NOT NULL,
+    titre_tache TEXT NOT NULL,
+
+    CONSTRAINT fk_id_tp_tache FOREIGN KEY (fk_id_tp) REFERENCES tp(id_tp)
+);
+
+CREATE TABLE etre_attribuer (
+    dte_fin DATE NOT NULL,
+    is_actif BIT NOT NULL,
+    fk_id_tp INT NOT NULL,
+    fk_id_promo INT NOT NULL,
+    CONSTRAINT fk_id_attribuer_promo FOREIGN KEY (fk_id_promo) REFERENCES promotion(id_promotion),
+    CONSTRAINT fk_id_attribuer_tp FOREIGN KEY (fk_id_tp) REFERENCES tp(id_tp)
+);
+
+CREATE TABLE valider ( 
+    reponse TEXT NOT NULL,
+    is_valide BIT NOT NULL,
+    fk_id_utilisateur INT NOT NULL,
+    fk_id_tache INT NOT NULL,
+    CONSTRAINT fk_id_valider_utilisateur FOREIGN KEY (fk_id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    CONSTRAINT fk_id_valider_tache FOREIGN KEY (fk_id_tache) REFERENCES tache(id_tache)
+);
+
+CREATE TABLE attendre_validation (
+    dte_demande DATE NOT NULL,
+    fk_id_utilisateur INT NOT NULL,
+    fk_id_tache INT NOT NULL,
+    CONSTRAINT fk_id_attente_utilisateur FOREIGN KEY (fk_id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    CONSTRAINT fk_id_attendre_tache FOREIGN KEY (fk_id_tache) REFERENCES tache(id_tache)
+);
+
+CREATE TABLE avancement_tache (
+    fk_id_tache INT NOT NULL,
+    fk_id_utilisateur INT NOT NULL,
+    taux_avancement INT NOT NULL,
+    CONSTRAINT fk_id_tache_avancement FOREIGN KEY (fk_id_tache) REFERENCES tache(id_tache),
+    CONSTRAINT fk_id_utilisateur_avancement FOREIGN KEY (fk_id_utilisateur) REFERENCES utilisateur(id_utilisateur)
+);

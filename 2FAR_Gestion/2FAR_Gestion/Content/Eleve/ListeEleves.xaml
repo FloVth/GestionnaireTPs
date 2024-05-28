@@ -1,0 +1,72 @@
+﻿<Page x:Name="ListEleves" x:Class="_2FAR_Gestion.ListeEleves"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_2FAR_Gestion"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="VoirEleve">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Label VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Content="Liste des élèves" Grid.ColumnSpan="4"/>
+        <Rectangle Fill="#5e17eb" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" ></Rectangle>
+        
+        <Label VerticalAlignment="center" HorizontalAlignment="Right" Grid.Row="1">
+            <iconPacks:PackIconModern Kind="PageSearch" Foreground="White" Height="auto" Width="auto" MaxHeight="60" MaxWidth="60"/>
+        </Label>
+        <TextBox x:Name="tbx_recherche" Grid.Row="1" Grid.Column="1" Margin="10 20" MaxHeight="30" VerticalContentAlignment="Center" LostFocus="tbx_recherche_nest_plus_cible" GotFocus="tbx_recherche_est_cible" TextChanged="tbx_recherche_texte_change"/>
+        <Label Grid.Row="1" Grid.Column="1" MinWidth="120" MaxWidth="120" MaxHeight="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 20" x:Name="lbl_recherche" Content="Rechercher un élève" Visibility="Visible" />
+
+        <ComboBox x:Name="cbb_promotion" Grid.Row="1" Grid.Column="2" MinWidth="200" MaxWidth="250" MaxHeight="30" HorizontalAlignment="Left" Margin="10 20" FontSize="18" FontWeight="Bold" DropDownOpened="cbb_promo_invisible" SelectionChanged="cbb_promotion_selection_change"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" MinWidth="120" MaxWidth="180" MaxHeight="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 20" x:Name="lbl_promotion" Text="Sélectionnez une promo" Visibility="Visible" />
+        <Button Grid.Row="1" Grid.Column="2" MinWidth="30" MaxWidth="60" MinHeight="30" MaxHeight="30" HorizontalAlignment="Right" Background="#5e17eb" Click="remise_a_zero">
+            <iconPacks:PackIconModern Kind="CheckmarkCross" Foreground="White"  Height="auto" Width="auto" MaxHeight="20" MaxWidth="20"/>
+        </Button>
+
+        <Button Grid.Row="1" Grid.Column="3" MaxHeight="40" MaxWidth="40" Background="Transparent" BorderBrush="White" BorderThickness="1" ToolTip="Ajouter un élève" Click="ajouter_eleve" >
+            <iconPacks:PackIconModern Kind="Add" Foreground="White"  Height="auto" Width="auto" MaxHeight="20" MaxWidth="20"/>
+        </Button>
+
+        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" CanUserResizeColumns="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" MinRowHeight="25" x:Name="dtg_liste_utilisateur">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="#5e17eb" />
+                    <Setter Property="Foreground" Value="AliceBlue" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="FontSize" Value="18"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.RowStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Nom" Header="Nom" Width="*" Binding="{Binding nomUtilisateur}" />
+                <DataGridTextColumn Header="Prénom" Width="*" Binding="{Binding prenomUtilisateur}"/>
+                <DataGridTextColumn Header="Promo" Width="*" Binding="{Binding nomPromo}"/>
+                <DataGridTextColumn Header="Mail" Width="*" Binding="{Binding mailUtilisateur}" />
+            </DataGrid.Columns>
+        </DataGrid>            
+    </Grid>
+</Page>

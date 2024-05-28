@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <RootNamespace>_2FAR_Gestion</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.6" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\2FAR_Library\2FAR_Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="2FAR_Library">
+      <HintPath>..\2FAR_Library\bin\Debug\net7.0-windows\2FAR_Library.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Content\Promo\AjouterPromo.xaml" />
+    <Compile Remove="Content\Promo\AjouterPromo.xaml.cs" />
+    <Compile Remove="classes\**" />
+    <Page Remove="classes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="classes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="classes\**" />
+  </ItemGroup>
+
+
+</Project>
